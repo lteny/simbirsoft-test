@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    <form method="post" action="/">
+        <input  type="text" size="60" name="url" placeholder="input URL"/>
+        <button type="submit">Pars</button>
+    </form>
+</div>
+<br>
+<div th:if="${not #lists.isEmpty(wordList)}">
+    <table style="border: 1px solid grey">
+        <thead>
+        <tr>
+            <th scope="col">Count</th>
+            <th scope="col">Word</th>
+        </tr>
+        </thead>
+        <tbody th:each="statistics :${wordList}">
+        <tr>
+            <td th:utext="${statistics.siteUrl}"></td>
+        </tr>
+        <tr th:each="word :${statistics.getStatistic()}">
+            <th scope="row" th:utext="${word.count}" style="border: 1px solid grey"></th>
+            <td th:utext="${word.word}" style="border: 1px solid grey"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

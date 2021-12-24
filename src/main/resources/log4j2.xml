@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingRandomAccessFile name="LogToRollingFile" fileName="logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{dd MM yyyy HH:mm:ss,SSS}  - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+<!--        <SMTP name="LogToMail" subject="Error Log From Log4j"-->
+<!--              from="****@gmail.com"-->
+<!--              to="****@gmail.com"-->
+<!--              smtpHost="smtp.gmail.com"-->
+<!--              smtpPort="465"-->
+<!--              smtpUsername="****@gmail.com"-->
+<!--              smtpPassword="******"-->
+<!--              bufferSize="100"-->
+<!--              smtpProtocol="smtps">-->
+<!--            <PatternLayout>-->
+<!--                <Pattern>%d{dd MM yyyy HH:mm:ss,SSS}  - %msg%n</Pattern>-->
+<!--            </PatternLayout>-->
+<!--        </SMTP>-->
+    </Appenders>
+
+    <Loggers>
+        <Logger name="ru.reuckiy.simbirsofttest" level="error" additivity="false">
+            <AppenderRef ref="LogToRollingFile"/>
+<!--            <AppenderRef ref="LogToMail"/>-->
+        </Logger>
+        <Logger name="org.springframework.boot" level="info" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="LogToRollingFile"/>
+<!--            <AppenderRef ref="LogToMail"/>-->
+        </Root>
+    </Loggers>
+</Configuration>
